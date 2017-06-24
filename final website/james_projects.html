@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<head>
+  <link rel="stylesheet" href="highlighter/prettify.css" />
+  <title>Projects</title>
+  <style>
+    header {
+      font-family: 'Raleway', sans-serif;
+      text-align: center;
+    }
+    ul {
+      text-align: center;
+    }
+    li {
+      display: inline;
+    }
+    body {
+      background: #FFEDD0;
+    }
+    ul {
+      padding-right: 55px;
+    }
+    h4 {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>My Project (C++)</h1>
+    <ul>
+        <li><a href="james_website.html">Homepage</a></li>
+    </ul>
+    <h2>
+    <hr></hr>
+  </header>
+  <h2>Project 1</h2>
+  <h4>Background: This project will demonstrate my knowledge of Templates, Sets, Classes, and Cases.</h4>
+ <div style="background: #FFEDD0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800">#include&lt;iostream&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>cout; <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>endl; <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>cin;
+ <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>ostream;
+ <span style="color: #008800">#include&lt;vector&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>vector;
+ <span style="color: #008800">#include&lt;string&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>string;
+ <span style="color: #008800">#include&lt;sstream&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>ostringstream;
+ <span style="color: #008800">#include&lt;algorithm&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>copy;
+ <span style="color: #008800">#include&lt;iterator&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">using</span> std<span style="color: #666666">::</span>ostream_iterator;
+
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">class</span> <span style="color: #0000FF">DJSet</span>;
+
+ <span style="color: #AA22FF; font-weight: bold">template</span> <span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">struct</span> Element{
+ <span style="color: #A0A000">public:</span>
+     T data_;
+     Element<span style="color: #666666">*</span> next_;
+
+     Element()<span style="color: #666666">=</span><span style="color: #AA22FF; font-weight: bold">default</span>;
+     Element(T d) <span style="color: #666666">:</span> data_(d), next_(nullptr) {};
+     <span style="color: #AA22FF; font-weight: bold">friend</span> ostream<span style="color: #666666">&amp;</span> <span style="color: #AA22FF; font-weight: bold">operator</span><span style="color: #666666">&lt;&lt;</span>(ostream<span style="color: #666666">&amp;</span> out, Element e){
+         <span style="color: #008800; font-style: italic">//Prints out data</span>
+         out <span style="color: #666666">&lt;&lt;</span> e.data_;
+         <span style="color: #AA22FF; font-weight: bold">return</span> out;
+     };
+     <span style="color: #AA22FF; font-weight: bold">friend</span> <span style="color: #AA22FF; font-weight: bold">class</span> <span style="color: #0000FF">DJSet</span><span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;</span>;
+ };
+
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ <span style="color: #AA22FF; font-weight: bold">class</span> <span style="color: #0000FF">DJSet</span>{
+     <span style="color: #008800; font-style: italic">//private:</span>
+ <span style="color: #A0A000">private:</span>
+     vector<span style="color: #666666">&lt;</span>Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> <span style="color: #666666">&gt;</span> v_;
+     <span style="color: #008800; font-style: italic">// Element&lt;T&gt;* copy_one_list(Element&lt;T&gt;*);</span>
+ <span style="color: #A0A000">public:</span>
+     DJSet() <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">default</span>;
+     DJSet(T);
+     DJSet(vector<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;</span>);
+     DJSet(<span style="color: #AA22FF; font-weight: bold">const</span> DJSet<span style="color: #666666">&amp;</span>);
+     DJSet<span style="color: #666666">&amp;</span> <span style="color: #AA22FF; font-weight: bold">operator</span><span style="color: #666666">=</span>(DJSet);
+     <span style="color: #666666">~</span>DJSet();
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> member(T);
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> add(T);
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> join(T, T);
+
+     <span style="color: #AA22FF; font-weight: bold">friend</span> ostream<span style="color: #666666">&amp;</span> <span style="color: #AA22FF; font-weight: bold">operator</span><span style="color: #666666">&lt;&lt;</span>(ostream<span style="color: #666666">&amp;</span> out, <span style="color: #AA22FF; font-weight: bold">const</span> DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;&amp;</span> ds){
+         <span style="color: #008800; font-style: italic">//If the size of the vector is 0 just print empty</span>
+         <span style="color: #AA22FF; font-weight: bold">if</span>(ds.v_.size() <span style="color: #666666">==</span> <span style="color: #666666">0</span>){
+             out <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;empty&quot;</span>;
+         }
+         <span style="color: #008800; font-style: italic">//If not empty and print the element out accordigly</span>
+         <span style="color: #AA22FF; font-weight: bold">else</span>{
+             <span style="color: #008800; font-style: italic">//Iterate through the vector</span>
+             <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">size_t</span> i <span style="color: #666666">=</span> <span style="color: #666666">0</span>; i <span style="color: #666666">&lt;</span> ds.v_.size(); i<span style="color: #666666">++</span>){
+                 <span style="color: #AA22FF; font-weight: bold">if</span>(i <span style="color: #666666">!=</span> ds.v_.size() <span style="color: #666666">-</span> <span style="color: #666666">1</span>){
+                     out <span style="color: #666666">&lt;&lt;</span> <span style="color: #666666">*</span>ds.v_[i] <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;-&gt;&quot;</span> <span style="color: #666666">&lt;&lt;</span>endl;
+                 }
+                 <span style="color: #AA22FF; font-weight: bold">else</span>{
+                     out <span style="color: #666666">&lt;&lt;</span> <span style="color: #666666">*</span>ds.v_[i] <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;-&gt;&quot;</span>;
+                 }
+             }
+         }
+         <span style="color: #AA22FF; font-weight: bold">return</span> out;
+     };
+ };
+
+ <span style="color: #008800; font-style: italic">//T val conctructor</span>
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;::</span>DJSet(T val){
+     <span style="color: #008800; font-style: italic">//Change the the value of val from T to Element&lt;T&gt;*</span>
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> n <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">new</span> Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;</span>(val);
+     <span style="color: #008800; font-style: italic">//Add the element to the vector</span>
+     v_.push_back(n);
+ }
+
+ <span style="color: #008800; font-style: italic">//Vector conctructor</span>
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;::</span>DJSet(vector<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;</span> vec){
+     <span style="color: #008800; font-style: italic">//Iterate through the vector</span>
+     <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">size_t</span> i <span style="color: #666666">=</span> <span style="color: #666666">0</span>; i <span style="color: #666666">!=</span> vec.size(); i<span style="color: #666666">++</span>){
+         <span style="color: #008800; font-style: italic">//Change the the value of vec[i] from T to Element&lt;T&gt;*</span>
+         Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> n <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">new</span> Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;</span>(vec[i]);
+         <span style="color: #008800; font-style: italic">//Add the element ot the vector;</span>
+         v_.push_back(n);
+
+     }
+ }
+
+ <span style="color: #008800; font-style: italic">//Member function - looks for val in the vector</span>
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;::</span>member(T val){
+     <span style="color: #008800; font-style: italic">//Initialize result to nullprt</span>
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> result <span style="color: #666666">=</span> nullptr;
+     <span style="color: #008800; font-style: italic">//Iterates through the vector to see if val</span>
+     <span style="color: #008800; font-style: italic">//is in there</span>
+     <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">size_t</span> i <span style="color: #666666">=</span> <span style="color: #666666">0</span>; i <span style="color: #666666">&lt;</span> v_.size(); i<span style="color: #666666">++</span>){
+         <span style="color: #AA22FF; font-weight: bold">if</span>(v_[i]<span style="color: #666666">-&gt;</span>data_ <span style="color: #666666">==</span> val){
+             result <span style="color: #666666">=</span> v_[i];
+         }
+     }
+     <span style="color: #AA22FF; font-weight: bold">return</span> result;
+ }
+
+ <span style="color: #008800; font-style: italic">//Add Function - Add the name if it is not found in the vector</span>
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;::</span>add(T name){
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> result <span style="color: #666666">=</span> nullptr;
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> n <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">new</span> Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;</span>(name);
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> ptr;
+     ptr <span style="color: #666666">=</span> member(name);
+     <span style="color: #008800; font-style: italic">//Checks if ptr is null or not, if null then</span>
+     <span style="color: #008800; font-style: italic">//add the name into the vector</span>
+     <span style="color: #AA22FF; font-weight: bold">if</span>(ptr <span style="color: #666666">==</span> nullptr){
+         v_.push_back(n);
+         result <span style="color: #666666">=</span> n;
+     }
+     <span style="color: #AA22FF; font-weight: bold">return</span> result;
+
+ }
+
+ <span style="color: #008800; font-style: italic">//Copy conctructor</span>
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;::</span>DJSet(<span style="color: #AA22FF; font-weight: bold">const</span> DJSet<span style="color: #666666">&amp;</span> ds){
+     <span style="color: #008800; font-style: italic">//Copy the vector</span>
+     v_ <span style="color: #666666">=</span> ds.v_;
+     <span style="color: #008800; font-style: italic">//Iterate through the vector to copy each memory</span>
+     <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">size_t</span> i <span style="color: #666666">=</span> <span style="color: #666666">0</span>; i <span style="color: #666666">&lt;</span> ds.v_.size(); i<span style="color: #666666">++</span>){
+         v_[i] <span style="color: #666666">=</span> ds.v_[i];
+     }
+ }
+
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;&amp;</span> DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;::</span><span style="color: #AA22FF; font-weight: bold">operator</span><span style="color: #666666">=</span>(DJSet ds){
+     <span style="color: #008800; font-style: italic">//Copy the vector</span>
+     v_ <span style="color: #666666">=</span> ds.v_;
+     <span style="color: #008800; font-style: italic">//Iterate through the vector to copy each memory</span>
+     <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">size_t</span> i <span style="color: #666666">=</span> <span style="color: #666666">0</span>; i <span style="color: #666666">&lt;</span> ds.v_.size(); i<span style="color: #666666">++</span>){
+         v_[i] <span style="color: #666666">=</span> ds.v_[i];
+     }
+     <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">*</span><span style="color: #AA22FF; font-weight: bold">this</span>;
+ }
+
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;::</span>join(T val_1, T val_2){
+     Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*</span> result <span style="color: #666666">=</span> nullptr;
+     <span style="color: #AA22FF; font-weight: bold">return</span> result;
+ }
+
+ <span style="color: #008800; font-style: italic">///Destructor</span>
+ <span style="color: #AA22FF; font-weight: bold">template</span><span style="color: #666666">&lt;</span><span style="color: #AA22FF; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span>
+ DJSet<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;::~</span>DJSet(){
+     vector<span style="color: #666666">&lt;</span>Element<span style="color: #666666">&lt;</span>T<span style="color: #666666">&gt;*&gt;</span> to_del;
+     <span style="color: #008800; font-style: italic">//Delete each element from the vector</span>
+     <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">size_t</span> i <span style="color: #666666">=</span> <span style="color: #666666">0</span>; i  <span style="color: #666666">&lt;</span> v_.size(); i<span style="color: #666666">++</span>){
+         v_[i] <span style="color: #666666">=</span> <span style="color: #AA22FF">NULL</span>;
+     }
+ }
+
+
+ <span style="color: #008800; font-style: italic">// Don&#39;t change main!!!!</span>
+ <span style="color: #00BB00; font-weight: bold">int</span> main (){
+     <span style="color: #00BB00; font-weight: bold">int</span> case_num;
+     cin <span style="color: #666666">&gt;&gt;</span> case_num;
+     string name;
+     <span style="color: #AA22FF; font-weight: bold">switch</span> (case_num){
+
+             <span style="color: #008800; font-style: italic">// basic constructors</span>
+         <span style="color: #AA22FF; font-weight: bold">case</span> <span style="color: #666666">1</span>: {
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             Element<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> e(name);
+             cout <span style="color: #666666">&lt;&lt;</span> e <span style="color: #666666">&lt;&lt;</span> endl;
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs_empty;
+             cout <span style="color: #666666">&lt;&lt;</span> djs_empty <span style="color: #666666">&lt;&lt;</span> endl;
+             <span style="color: #AA22FF; font-weight: bold">break</span>;
+         }
+
+             <span style="color: #008800; font-style: italic">// single T constructor</span>
+         <span style="color: #AA22FF; font-weight: bold">case</span> <span style="color: #666666">2</span>: {
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs_one(name);
+             cout <span style="color: #666666">&lt;&lt;</span> djs_one <span style="color: #666666">&lt;&lt;</span> endl;
+             <span style="color: #AA22FF; font-weight: bold">break</span>;
+         }
+
+             <span style="color: #008800; font-style: italic">// vector T constructor.</span>
+         <span style="color: #AA22FF; font-weight: bold">case</span> <span style="color: #666666">3</span>: {
+             vector<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> v_s;
+             <span style="color: #AA22FF; font-weight: bold">while</span> (cin <span style="color: #666666">&gt;&gt;</span> name)
+                 v_s.push_back(name);
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs_3(v_s);
+             cout <span style="color: #666666">&lt;&lt;</span> djs_3 <span style="color: #666666">&lt;&lt;</span> endl;
+             <span style="color: #AA22FF; font-weight: bold">break</span>;
+         }
+
+             <span style="color: #008800; font-style: italic">// member</span>
+         <span style="color: #AA22FF; font-weight: bold">case</span> <span style="color: #666666">4</span>:{
+             vector<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> v_s;
+             Element<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;*</span> ptr;
+             <span style="color: #AA22FF; font-weight: bold">while</span> (cin <span style="color: #666666">&gt;&gt;</span> name)
+                 v_s.push_back(name);
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs(v_s);
+             ptr <span style="color: #666666">=</span> djs.member(v_s[<span style="color: #666666">0</span>]);
+             cout <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;Name:&quot;</span> <span style="color: #666666">&lt;&lt;</span> v_s[<span style="color: #666666">0</span>]
+             <span style="color: #666666">&lt;&lt;</span>( (ptr <span style="color: #666666">==</span> nullptr) <span style="color: #666666">?</span> <span style="color: #BB4444">&quot; not-member&quot;</span> <span style="color: #666666">:</span> <span style="color: #BB4444">&quot; member&quot;</span>)
+             <span style="color: #666666">&lt;&lt;</span> endl;
+             ptr <span style="color: #666666">=</span> djs.member(<span style="color: #BB4444">&quot;xyzzy&quot;</span>);
+             cout <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;Name:&quot;</span> <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;xyzzy&quot;</span>
+             <span style="color: #666666">&lt;&lt;</span>( (ptr <span style="color: #666666">==</span> nullptr) <span style="color: #666666">?</span> <span style="color: #BB4444">&quot; not-member&quot;</span> <span style="color: #666666">:</span> <span style="color: #BB4444">&quot; member&quot;</span>)
+             <span style="color: #666666">&lt;&lt;</span> endl;
+             <span style="color: #AA22FF; font-weight: bold">break</span>;
+         }
+
+             <span style="color: #008800; font-style: italic">// add</span>
+         <span style="color: #AA22FF; font-weight: bold">case</span> <span style="color: #666666">5</span>: {
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs_add;
+             Element<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;*</span> ptr;
+             <span style="color: #AA22FF; font-weight: bold">while</span> (cin <span style="color: #666666">&gt;&gt;</span> name){
+                 ptr <span style="color: #666666">=</span> djs_add.add(name);
+                 cout <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;Name:&quot;</span> <span style="color: #666666">&lt;&lt;</span> name
+                 <span style="color: #666666">&lt;&lt;</span>( (ptr <span style="color: #666666">==</span> nullptr) <span style="color: #666666">?</span> <span style="color: #BB4444">&quot; not-added&quot;</span> <span style="color: #666666">:</span> <span style="color: #BB4444">&quot; added&quot;</span>)
+                 <span style="color: #666666">&lt;&lt;</span> endl;
+             }
+             cout <span style="color: #666666">&lt;&lt;</span> djs_add <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;Add returns:&quot;</span>
+             <span style="color: #666666">&lt;&lt;</span>( (ptr <span style="color: #666666">==</span> nullptr) <span style="color: #666666">?</span> <span style="color: #BB4444">&quot; nullptr&quot;</span> <span style="color: #666666">:</span> name)
+             <span style="color: #666666">&lt;&lt;</span> endl;
+             <span style="color: #AA22FF; font-weight: bold">break</span>;
+         }
+
+             <span style="color: #008800; font-style: italic">// copy constructor</span>
+         <span style="color: #AA22FF; font-weight: bold">case</span> <span style="color: #666666">6</span>: {
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs(name);
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs_copy(djs);
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             djs_copy.add(name);
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             djs.add(name);
+             cout <span style="color: #666666">&lt;&lt;</span> djs <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> djs_copy <span style="color: #666666">&lt;&lt;</span> endl;
+             <span style="color: #AA22FF; font-weight: bold">break</span>;
+         }
+
+             <span style="color: #008800; font-style: italic">// operator =</span>
+         <span style="color: #AA22FF; font-weight: bold">case</span> <span style="color: #666666">7</span>: {
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs_rhs;
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs_lhs;
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             djs_rhs.add(name);
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             djs_rhs.add(name);
+
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             djs_lhs.add(name);
+             cin <span style="color: #666666">&gt;&gt;</span> name;
+             djs_lhs.add(name);
+
+             djs_lhs <span style="color: #666666">=</span> djs_rhs;
+             cout <span style="color: #666666">&lt;&lt;</span> djs_lhs <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> djs_rhs <span style="color: #666666">&lt;&lt;</span> endl;
+             <span style="color: #AA22FF; font-weight: bold">break</span>;
+         }
+
+             <span style="color: #008800; font-style: italic">// join</span>
+         <span style="color: #AA22FF; font-weight: bold">case</span> <span style="color: #666666">8</span>:{
+             DJSet<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;</span> djs;
+             Element<span style="color: #666666">&lt;</span>string<span style="color: #666666">&gt;*</span> ptr;
+
+             <span style="color: #AA22FF; font-weight: bold">while</span>(cin <span style="color: #666666">&gt;&gt;</span> name)
+                 djs.add(name);
+             djs.join(<span style="color: #BB4444">&quot;Francis&quot;</span>, <span style="color: #BB4444">&quot;Fiona&quot;</span>);
+             cout <span style="color: #666666">&lt;&lt;</span> djs <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> endl;
+             djs.join(<span style="color: #BB4444">&quot;Francis&quot;</span>, <span style="color: #BB4444">&quot;Fred&quot;</span>);
+             cout <span style="color: #666666">&lt;&lt;</span> djs <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> endl;
+             djs.join(<span style="color: #BB4444">&quot;Faith&quot;</span>, <span style="color: #BB4444">&quot;Frieda&quot;</span>);
+             ptr <span style="color: #666666">=</span> djs.join(<span style="color: #BB4444">&quot;Faith&quot;</span>, <span style="color: #BB4444">&quot;Fiona&quot;</span>);
+             cout <span style="color: #666666">&lt;&lt;</span> djs <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;Faith and Fiona &quot;</span>
+             <span style="color: #666666">&lt;&lt;</span>( (ptr <span style="color: #666666">==</span> nullptr) <span style="color: #666666">?</span> <span style="color: #BB4444">&quot; not-joined&quot;</span> <span style="color: #666666">:</span> <span style="color: #BB4444">&quot; joined&quot;</span>)
+             <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> <span style="color: #666666">*</span>ptr <span style="color: #666666">&lt;&lt;</span> endl;
+             ptr <span style="color: #666666">=</span> djs.join(<span style="color: #BB4444">&quot;xyzzy&quot;</span>, <span style="color: #BB4444">&quot;Ford&quot;</span>);
+             cout <span style="color: #666666">&lt;&lt;</span> djs <span style="color: #666666">&lt;&lt;</span> endl;
+             cout <span style="color: #666666">&lt;&lt;</span> <span style="color: #BB4444">&quot;xyzzy and Ford&quot;</span>
+             <span style="color: #666666">&lt;&lt;</span>( (ptr <span style="color: #666666">==</span> nullptr) <span style="color: #666666">?</span> <span style="color: #BB4444">&quot; not-joined&quot;</span> <span style="color: #666666">:</span> <span style="color: #BB4444">&quot; joined&quot;</span>)
+             <span style="color: #666666">&lt;&lt;</span> endl;
+             <span style="color: #AA22FF; font-weight: bold">break</span>;
+         }
+
+     }
+ }
+ </pre></div>
+
+<h2>Sample Inputs to Use!</h2>
+<div style="background: #FFEDD0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">
+<ul>
+  1 Fred
+  2 Fred
+  7 Fred Frieda Faith Ford
+  8 Fred Frieda Faith Ford Francis Fiona
+</ul>
+</pre></div>
+
+<ul>
+    <li><a href="james_projects.html">Back to Top</a></li>
+</ul>
+
+</body>
